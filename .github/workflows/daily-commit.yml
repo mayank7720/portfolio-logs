@@ -1,0 +1,27 @@
+name: Daily Auto Commit
+
+on:
+  schedule:
+    # Runs everyday at 12:00 UTC (5:30 PM IST)
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Allows manual trigger directly from GitHub website
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Append Daily Log entry
+        run: |
+          mkdir -p data
+          echo "Automated active contribution record: $(date)" > data/daily_contribution.txt
+
+      - name: Commit and Push update
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/daily_contribution.txt
+          git commit -m "chore: automated daily contribution log [skip ci]" || echo "No changes to record"
+          git push
