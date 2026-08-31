@@ -20,8 +20,8 @@ jobs:
 
       - name: Commit and Push update
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "Mayank Raj"
+          git config --global user.email "mayankraj.work@gmail.com"
           git add data/daily_contribution.txt
           git commit -m "chore: automated daily contribution log [skip ci]" || echo "No changes to record"
           git push
